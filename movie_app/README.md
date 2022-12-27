@@ -1,6 +1,13 @@
-# movie_app
+# Movie_app
 
-A new Flutter project.
+## The Movie App is currently under development.
+
+### Initial version Demo:
+  
+
+
+https://user-images.githubusercontent.com/84179065/209716476-cd179139-2d2a-4d98-a2e0-4985eeb2efab.mp4
+
 
 ## Getting Started
 
