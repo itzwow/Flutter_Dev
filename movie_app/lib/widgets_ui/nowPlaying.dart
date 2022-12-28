@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/utils/text.dart';
 
+import '../screens/description.dart';
+
 class NowPlaying extends StatelessWidget {
 
   final List  nowPlaying;
@@ -29,7 +31,24 @@ class NowPlaying extends StatelessWidget {
                   itemBuilder: (context, index){
                     return InkWell(
 
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Description(
+                          movieName: nowPlaying[index]['title'],
+                          releaseDate: nowPlaying[index]
+                          ['release_date'],
+                          votes: nowPlaying[index]['vote_average']
+                              .toString(),
+                          bannerurl:
+                          'https://image.tmdb.org/t/p/w500' +
+                              nowPlaying[index]['backdrop_path'],
+                          posterurl:
+                          'https://image.tmdb.org/t/p/w500' +
+                              nowPlaying[index]['poster_path'],
+                          description: nowPlaying[index]['overview'],
+
+
+                        )));
+                      },
                       child: Container(
 
                         width: 155,

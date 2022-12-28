@@ -15,7 +15,7 @@ class custom_text extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text!, style: GoogleFonts.montserrat(
+      text!, style: GoogleFonts.poppins(
       color: color, fontSize: size,
     ),
     );

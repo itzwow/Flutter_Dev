@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:movie_app/screens/login.dart';
+import 'package:movie_app/screens/sidemenu.dart';
 import 'package:movie_app/utils/text.dart';
 import 'package:movie_app/widgets_ui/nowPlaying.dart';
 import 'package:movie_app/widgets_ui/topRated.dart';
@@ -44,8 +45,8 @@ class _MoviescreenState extends State<Moviescreen> {
       topRatedMovies = topratedResults['results'];
       nowPlaying = nowResults['results'];
     });
-    print(trendingMovies);
-    print(nowPlaying);
+    // print(trendingMovies);
+    // print(nowPlaying);
     print(topRatedMovies);
   }
 
@@ -54,13 +55,15 @@ class _MoviescreenState extends State<Moviescreen> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255,30,38,50),
       appBar: AppBar(
-        leading: IconButton(icon: Icon(Icons.logout_outlined), onPressed: ()async{
-          await FirebaseAuth.instance.signOut().then((value) => {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen() ))
-          });
-        }),
+        // leading: IconButton(icon: Icon(Icons.logout_outlined), onPressed: ()async{
+        //   await FirebaseAuth.instance.signOut().then((value) => {
+        //     Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen() ))
+        //   });
+        // }),
         backgroundColor: Colors.transparent,
-        title: custom_text(text: 'Movie App'),),
+        title: custom_text(text: 'Movie App'),
+      ),
+      drawer: MenuDrawer(),
       body: ListView(
 
         children: [
