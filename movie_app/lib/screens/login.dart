@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/screens/signup.dart';
+import 'package:movie_app/utils/helper/sharedprefhelp.dart';
 import 'package:movie_app/utils/text.dart';
 
 import '../moviescreen.dart';
@@ -86,11 +87,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     .signInWithEmailAndPassword(
                         email: _emailController.text,
                         password: _passwordController.text)
-                    .then((value) {
-                  print("Login Successful!");
+                    .then((value) async{
+                  await SharedprefFunction.saveLogInStatus(true);
+                  // await SharedprefFunction.saveUserEmail(_emailController.text);
+
                   ScaffoldMessenger.of(context).showSnackBar(alertBox(context, "Login Successful", "green"));
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Moviescreen()));
+                  Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (context) => Moviescreen()), (route)=>false);
                 }).onError((error, stackTrace) {
                   print("Error: ${error.toString()}");
                   ScaffoldMessenger.of(context).showSnackBar(alertBox(context, "${error.toString()}", "red"));

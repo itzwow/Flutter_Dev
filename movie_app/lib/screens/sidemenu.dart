@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app/utils/helper/sharedprefhelp.dart';
 
 import 'login.dart';
 
@@ -58,10 +59,12 @@ class MenuDrawer extends StatelessWidget {
               ),
             ),
               onTap: ()async {
-                await FirebaseAuth.instance.signOut().then((value) =>
+                await FirebaseAuth.instance.signOut().then((value) async
                 {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()))
+                  await SharedprefFunction.saveLogInStatus(false);
+                  await SharedprefFunction.saveUserEmail("");
+                  Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()), (route)=>false);
                 });
               })
         ],

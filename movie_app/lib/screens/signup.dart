@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/moviescreen.dart';
 import 'package:movie_app/screens/login.dart';
+import '../utils/helper/sharedprefhelp.dart';
 import '../widgets_ui/reusableWidgets.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -66,20 +67,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 40,
               ),
               reusableButton(context, false, () {
-                FirebaseAuth.instance.createUserWithEmailAndPassword(
-                    email: _emailController.text,
-                    password: _passwordController.text).then(
+                FirebaseAuth.instance
+                    .createUserWithEmailAndPassword(
+                        email: _emailController.text,
+                        password: _passwordController.text)
+                    .then((value) async {
+                  // print("Account Created Successfully!");
+                  await SharedprefFunction.saveLogInStatus(true);
+                  // await SharedprefFunction.saveUserEmail(_emailController.text);
 
-                        (value){
-                          // print("Account Created Successfully!");
-                          ScaffoldMessenger.of(context).showSnackBar(alertBox(context, "Account Created Successfully!", "green"));
-                          Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Moviescreen()));}).onError((error, stackTrace) {
-                      // print("Error: ${error.toString()}");
-                  ScaffoldMessenger.of(context).showSnackBar(alertBox(context, "${error.toString()}", "red"));
+                  ScaffoldMessenger.of(context).showSnackBar(alertBox(
+                      context, "Account Created Successfully!", "green"));
+                  Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (context) => Moviescreen()), (route)=>false);
+                }).onError((error, stackTrace) {
+                  // print("Error: ${error.toString()}");
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      alertBox(context, "${error.toString()}", "red"));
                   // alertBox(context);
                 });
-
               }),
             ],
           ),
